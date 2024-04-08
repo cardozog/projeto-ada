@@ -10,4 +10,8 @@ public interface IProfessorService {
     ProfessorDto buscarProfessorPorId(int id);
 
     void atualizarProfessor(int id,String nome);
+
+    void excluirProfessor(int id);
+
+
 }

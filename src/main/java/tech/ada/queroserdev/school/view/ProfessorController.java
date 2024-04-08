@@ -35,10 +35,12 @@ public class ProfessorController {
     }
 
     @GetMapping("/{id}")
-    public ProfessorDto buscarProfessor(
-            @PathVariable("id") int id
-    ) {
+    public ProfessorDto buscarProfessor(@PathVariable("id") int id) {
         return servico.buscarProfessorPorId(id);
     }
 
+    @DeleteMapping("/{id}")
+    public void excluirProfessor(@PathVariable("id") int id){
+        servico.excluirProfessor(id);
+    }
 }

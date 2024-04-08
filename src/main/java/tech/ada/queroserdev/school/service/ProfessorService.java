@@ -42,4 +42,12 @@ public class ProfessorService implements IProfessorService {
         }
 
     }
+
+    @Override
+    public void excluirProfessor(int id) {
+        ProfessorDto professor = buscarProfessorPorId(id);
+        if (professor != null) {
+            professores.remove(professor);
+        }
+    }
 }
