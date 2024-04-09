@@ -1,7 +1,7 @@
-package tech.ada.queroserdev.school.service;
+package tech.ada.queroserdev.school.service.professor;
 
 import org.springframework.stereotype.Service;
-import tech.ada.queroserdev.school.domain.dto.v1.ProfessorDto;
+import tech.ada.queroserdev.school.domain.dto.v1.professor.ProfessorDto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,14 @@ public class ProfessorService implements IProfessorService {
     private int id = 1;
 
     @Override
-    public int criarProfessor(String nome) {
-        professores.add(new ProfessorDto(id++, nome));
+    public int criarProfessor(ProfessorDto pedido) {
+        professores.add(new ProfessorDto(id++, pedido.getNome(), pedido.getCpf(), pedido.getEmail()));
         return id - 1;
     }
 
     @Override
     public List<ProfessorDto> listarProfessores() {
+
         return professores;
     }
 
@@ -34,11 +35,12 @@ public class ProfessorService implements IProfessorService {
     }
 
     @Override
-    public void atualizarProfessor(int id, String nome) {
+    public void atualizarProfessor(int id, ProfessorDto pedido) {
         Optional<ProfessorDto> professor = professores.stream().filter(prof -> prof.getId() == id).findFirst();
         if (professor.isPresent()) {
-            professor.get().setNome(nome);
-
+            professor.get().setNome(pedido.getNome());
+            professor.get().setCpf(pedido.getCpf());
+            professor.get().setEmail(pedido.getEmail());
         }
 
     }
