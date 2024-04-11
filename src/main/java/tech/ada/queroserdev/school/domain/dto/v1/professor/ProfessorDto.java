@@ -1,10 +1,7 @@
 package tech.ada.queroserdev.school.domain.dto.v1.professor;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +19,9 @@ public class ProfessorDto {
     @NotBlank
     private String nome;
     @CPF
+    @NotNull
     private String cpf;
     @Email
+    @NotNull
     private String email;
 }

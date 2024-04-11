@@ -1,15 +1,17 @@
 package tech.ada.queroserdev.school.service.aluno;
 
 import org.springframework.stereotype.Service;
+import tech.ada.queroserdev.school.domain.dto.exceptions.NotFoundException;
 import tech.ada.queroserdev.school.domain.dto.v1.aluno.AlunoDto;
+import tech.ada.queroserdev.school.domain.dto.v1.professor.ProfessorDto;
 
 import java.util.List;
 
 
 public interface IAlunoService {
-    int criarAluno(AlunoDto pedido);
+    AlunoDto criarAluno(AlunoDto pedido);
     List<AlunoDto> listarAlunos();
-    AlunoDto buscarAlunoPorId(int id);
-    void atualizarAluno(int id, AlunoDto pedido);
-    void excluirAluno(int id);
+    AlunoDto buscarAlunoPorId(int id) throws NotFoundException;
+    AlunoDto atualizarAluno (int id, AlunoDto pedido) throws NotFoundException;
+    AlunoDto excluirAluno(int id) throws NotFoundException;
 }

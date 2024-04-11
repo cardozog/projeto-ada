@@ -1,6 +1,7 @@
 package tech.ada.queroserdev.school.service.professor;
 
 import org.springframework.stereotype.Service;
+import tech.ada.queroserdev.school.domain.dto.exceptions.NotFoundException;
 import tech.ada.queroserdev.school.domain.dto.v1.professor.ProfessorDto;
 
 import java.util.ArrayList;
@@ -26,12 +27,12 @@ public class ProfessorService implements IProfessorService {
     }
 
     @Override
-    public ProfessorDto buscarProfessorPorId(int id) {
-        Optional<ProfessorDto> professor = professores
+    public ProfessorDto buscarProfessorPorId(int id) throws NotFoundException {
+        return professores
                 .stream()
                 .filter(it -> it.getId() == id)
-                .findFirst();
-        return professor.orElse(null);
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException(ProfessorDto.class, String.valueOf(id)));
     }
 
     @Override
@@ -46,10 +47,9 @@ public class ProfessorService implements IProfessorService {
     }
 
     @Override
-    public void excluirProfessor(int id) {
+    public void excluirProfessor(int id) throws NotFoundException {
         ProfessorDto professor = buscarProfessorPorId(id);
-        if (professor != null) {
-            professores.remove(professor);
-        }
+        professores.remove(professor);
+
     }
 }

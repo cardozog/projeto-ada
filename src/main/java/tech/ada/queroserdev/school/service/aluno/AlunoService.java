@@ -1,6 +1,7 @@
 package tech.ada.queroserdev.school.service.aluno;
 
 import org.springframework.stereotype.Service;
+import tech.ada.queroserdev.school.domain.dto.exceptions.NotFoundException;
 import tech.ada.queroserdev.school.domain.dto.v1.aluno.AlunoDto;
 
 import java.util.ArrayList;
@@ -13,9 +14,10 @@ public class AlunoService implements IAlunoService {
     private int id = 1;
 
     @Override
-    public int criarAluno(AlunoDto pedido) {
-        alunos.add(new AlunoDto(id++, pedido.getNome(), pedido.getCpf(), pedido.getEmail()));
-        return id - 1;
+    public AlunoDto criarAluno(AlunoDto pedido) {
+        AlunoDto aluno = new AlunoDto(id++, pedido.getNome(), pedido.getCpf(), pedido.getEmail());
+        alunos.add(aluno);
+        return aluno;
     }
 
     @Override
@@ -24,26 +26,43 @@ public class AlunoService implements IAlunoService {
     }
 
     @Override
-    public AlunoDto buscarAlunoPorId(int id) {
-        Optional<AlunoDto> aluno = alunos.stream().filter(it -> it.getId() == id).findFirst();
-        return aluno.orElse(null);
+    public AlunoDto buscarAlunoPorId(int id) throws NotFoundException {
+        return alunos.stream().filter(it -> it.getId() == id)
+                .findFirst()
+                .orElseThrow(
+                        () -> new NotFoundException(AlunoDto.class, String.valueOf(id)
+                        ));
+
     }
 
     @Override
-    public void atualizarAluno(int id, AlunoDto pedido) {
-        Optional<AlunoDto> aluno = alunos.stream().filter(al -> al.getId() == id).findFirst();
-        if (aluno.isPresent()) {
-            aluno.get().setNome(pedido.getNome());
-            aluno.get().setCpf(pedido.getCpf());
-            aluno.get().setEmail(pedido.getEmail());
+    public AlunoDto atualizarAluno(int id, AlunoDto pedido) throws NotFoundException {
+        Optional<AlunoDto> alunoOptional = alunos.stream()
+                .filter(al -> al.getId() == id)
+                .findFirst();
+        if (alunoOptional.isPresent()) {
+            AlunoDto aluno = alunoOptional.get();
+            aluno.setNome(pedido.getNome() != null ? pedido.getNome() : aluno.getNome());
+            aluno.setCpf(pedido.getCpf() != null ? pedido.getCpf() : aluno.getCpf());
+            aluno.setEmail(pedido.getEmail() != null ? pedido.getEmail() : aluno.getEmail());
+            return aluno;
+        } else {
+            throw new NotFoundException(AlunoDto.class, String.valueOf(id));
         }
+
     }
 
     @Override
-    public void excluirAluno(int id) {
-        AlunoDto aluno = buscarAlunoPorId(id);
-        if (aluno != null) {
+    public AlunoDto excluirAluno(int id) throws NotFoundException {
+        Optional<AlunoDto> alunoOptional = alunos.stream()
+                .filter(al -> al.getId() == id)
+                .findFirst();
+        if (alunoOptional.isPresent()) {
+            AlunoDto aluno = alunoOptional.get();
             alunos.remove(aluno);
+            return aluno;
+        } else {
+            throw new NotFoundException(AlunoDto.class, String.valueOf(id));
         }
     }
 }
