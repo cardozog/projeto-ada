@@ -38,9 +38,7 @@ public class AlunoServiceDB implements IAlunoService {
 
     @Override
     public AlunoDto buscarAlunoPorId(int id) throws NotFoundException {
-        return AlunoMapper.toDto(repository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException(Aluno.class, String.valueOf(id))));
+        return AlunoMapper.toDto(buscarAluno(id));
     }
 
     @Override
@@ -60,6 +58,8 @@ public class AlunoServiceDB implements IAlunoService {
         return AlunoMapper.toDto(a);
     }
 
+
+
     @Override
     public AlunoDto incrementarIdades(int id) throws NotFoundException {
         final Aluno a = buscarAluno(id);
@@ -70,6 +70,13 @@ public class AlunoServiceDB implements IAlunoService {
     @Override
     public AlunoDto buscarPorCpf(String cpf) throws NotFoundException {
         return AlunoMapper.toDto(repository.findByCpf(cpf).orElseThrow(() -> new NotFoundException(Aluno.class, cpf)));
+    }
+
+    @Override
+    public AlunoDto excluirPorCpf(String cpf) throws NotFoundException {
+        AlunoDto aluno = buscarPorCpf(cpf);
+        repository.delete(AlunoMapper.toEntity(aluno));
+        return aluno;
     }
 
     private Aluno buscarAluno(int id) throws NotFoundException {

@@ -36,6 +36,12 @@ public class AlunoController {
         return ok(servico.buscarAlunoPorId(id));
     }
 
+
+    @GetMapping("/cpf/")
+    public ResponseEntity<AlunoDto> buscarPorCpf(@PathParam("cpf") String cpf) throws NotFoundException {
+        return ResponseEntity.ok().body(servico.buscarPorCpf(cpf));
+    }
+
     @PostMapping
     public ResponseEntity<AlunoDto> criarAluno(@RequestBody @Valid AlunoDto pedido) throws CpfExistsException {
         return ResponseEntity.status(HttpStatus.CREATED).body(servico.criarAluno(pedido));
@@ -57,14 +63,15 @@ public class AlunoController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<AlunoDto> excluirAluno(@PathVariable("id") int id) throws NotFoundException {
         AlunoDto alunoRemovido = servico.excluirAluno(id);
-        if (alunoRemovido == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+
         return ok(alunoRemovido);
     }
 
-    @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<AlunoDto> buscarPorCpf(@PathVariable("cpf") String cpf) throws NotFoundException {
-        return ResponseEntity.ok().body(servico.buscarPorCpf(cpf));
+    @DeleteMapping("/cpf/")
+    public ResponseEntity<AlunoDto> excluirAlunoPorCpf(@PathParam("cpf") String cpf) throws NotFoundException {
+        AlunoDto aluno = servico.excluirPorCpf(cpf);
+        return ok(aluno);
     }
+
+
 }

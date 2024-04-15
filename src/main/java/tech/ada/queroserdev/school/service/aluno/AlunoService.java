@@ -6,7 +6,6 @@ import tech.ada.queroserdev.school.domain.dto.v1.aluno.AlunoDto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AlunoService implements IAlunoService {
@@ -60,12 +59,24 @@ public class AlunoService implements IAlunoService {
     @Override
     public AlunoDto incrementarIdades(int id) throws NotFoundException {
         AlunoDto aluno = buscarAlunoPorId(id);
+
         aluno.setIdade(aluno.getIdade() + 1);
         return aluno;
     }
 
     @Override
     public AlunoDto buscarPorCpf(String cpf) throws NotFoundException {
-        return null;
+        return alunos
+                .stream()
+                .filter(it -> it.getCpf().equals(cpf))
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException(AlunoDto.class, cpf));
+    }
+
+    @Override
+    public AlunoDto excluirPorCpf(String cpf) throws NotFoundException {
+       AlunoDto aluno = buscarPorCpf(cpf);
+       alunos.remove(aluno);
+       return aluno;
     }
 }

@@ -23,8 +23,6 @@ public class Aluno {
     private String nome;
     @Column(name = "cpf",unique = true)
     private String cpf;
-
     private String eMail;
-
     private int idade;
 }
