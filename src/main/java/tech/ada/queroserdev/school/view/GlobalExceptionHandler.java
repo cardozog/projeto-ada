@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import tech.ada.queroserdev.school.domain.dto.errors.ErrorResponse;
+import tech.ada.queroserdev.school.domain.dto.error.ErrorResponse;
+import tech.ada.queroserdev.school.domain.dto.exceptions.CpfExistsException;
 import tech.ada.queroserdev.school.domain.dto.exceptions.NotFoundException;
 
 @ControllerAdvice
@@ -14,12 +15,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = NotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFoundException(final NotFoundException exception) {
-
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.createFromException(exception));
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleConstraintViolationException(final MethodArgumentNotValidException ex) {
+        return ResponseEntity.badRequest().body(ErrorResponse.createFromException(ex));
+    }
+    @ExceptionHandler(value = CpfExistsException.class)
+    public ResponseEntity<ErrorResponse> handleExistantCpf(final CpfExistsException ex){
         return ResponseEntity.badRequest().body(ErrorResponse.createFromException(ex));
     }
 }

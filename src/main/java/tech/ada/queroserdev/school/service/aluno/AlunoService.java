@@ -15,7 +15,7 @@ public class AlunoService implements IAlunoService {
 
     @Override
     public AlunoDto criarAluno(AlunoDto pedido) {
-        AlunoDto aluno = new AlunoDto(id++, pedido.getNome(), pedido.getCpf(), pedido.getEmail());
+        AlunoDto aluno = new AlunoDto(id++, pedido.getNome(), pedido.getCpf(), pedido.getEmail(), pedido.getIdade());
         alunos.add(aluno);
         return aluno;
     }
@@ -37,32 +37,35 @@ public class AlunoService implements IAlunoService {
 
     @Override
     public AlunoDto atualizarAluno(int id, AlunoDto pedido) throws NotFoundException {
-        Optional<AlunoDto> alunoOptional = alunos.stream()
-                .filter(al -> al.getId() == id)
-                .findFirst();
-        if (alunoOptional.isPresent()) {
-            AlunoDto aluno = alunoOptional.get();
-            aluno.setNome(pedido.getNome() != null ? pedido.getNome() : aluno.getNome());
-            aluno.setCpf(pedido.getCpf() != null ? pedido.getCpf() : aluno.getCpf());
-            aluno.setEmail(pedido.getEmail() != null ? pedido.getEmail() : aluno.getEmail());
-            return aluno;
-        } else {
-            throw new NotFoundException(AlunoDto.class, String.valueOf(id));
-        }
+        AlunoDto aluno = buscarAlunoPorId(id);
+
+        aluno.setNome(pedido.getNome() != null ? pedido.getNome() : aluno.getNome());
+        aluno.setCpf(pedido.getCpf() != null ? pedido.getCpf() : aluno.getCpf());
+        aluno.setEmail(pedido.getEmail() != null ? pedido.getEmail() : aluno.getEmail());
+        aluno.setIdade(pedido.getIdade() != 0 ? pedido.getIdade() : aluno.getIdade());
+
+        return aluno;
+
 
     }
 
     @Override
     public AlunoDto excluirAluno(int id) throws NotFoundException {
-        Optional<AlunoDto> alunoOptional = alunos.stream()
-                .filter(al -> al.getId() == id)
-                .findFirst();
-        if (alunoOptional.isPresent()) {
-            AlunoDto aluno = alunoOptional.get();
-            alunos.remove(aluno);
-            return aluno;
-        } else {
-            throw new NotFoundException(AlunoDto.class, String.valueOf(id));
-        }
+        AlunoDto aluno = buscarAlunoPorId(id);
+        alunos.remove(aluno);
+        return aluno;
+
+    }
+
+    @Override
+    public AlunoDto incrementarIdades(int id) throws NotFoundException {
+        AlunoDto aluno = buscarAlunoPorId(id);
+        aluno.setIdade(aluno.getIdade() + 1);
+        return aluno;
+    }
+
+    @Override
+    public AlunoDto buscarPorCpf(String cpf) throws NotFoundException {
+        return null;
     }
 }
