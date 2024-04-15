@@ -60,7 +60,7 @@ Também fornece endpoints para recuperar alunos por seus IDs ou CPFs (Número de
 - **Resposta:** Retorna um objeto JSON de `AlunoDto` representando o aluno excluído.
 
 ### Excluir Aluno por CPF
-- **URL:** `/aluno/cpf/{cpf}`
+- **URL:** `/aluno/cpf/?cpf=xxxxxxxxxxx`
 - **Método:** `DELETE`
 - **Descrição:** Exclui um aluno pelo seu CPF.
 - **Parâmetros:**
