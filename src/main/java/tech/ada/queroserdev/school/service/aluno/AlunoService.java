@@ -14,7 +14,7 @@ public class AlunoService implements IAlunoService {
 
     @Override
     public AlunoDto criarAluno(AlunoDto pedido) {
-        AlunoDto aluno = new AlunoDto(id++, pedido.getNome(), pedido.getCpf(), pedido.getEmail(), pedido.getIdade());
+        AlunoDto aluno = new AlunoDto(id++, pedido.getNome(), pedido.getCpf(), pedido.getEmail(), pedido.getIdade(), null);
         alunos.add(aluno);
         return aluno;
     }
