@@ -1,4 +1,4 @@
-package tech.ada.queroserdev.school.view.Aluno;
+package tech.ada.queroserdev.school.view.aluno;
 
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
@@ -27,12 +27,12 @@ public class AlunoController {
 
     @GetMapping
     public ResponseEntity<List<AlunoDto>> listarAlunos() {
+
         return ok(servico.listarAlunos());
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<AlunoDto> buscarAluno(@PathVariable("id") int id) throws NotFoundException {
-
         return ok(servico.buscarAlunoPorId(id));
     }
 
@@ -54,7 +54,7 @@ public class AlunoController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<AlunoDto> alterarAluno(@PathVariable("id") int id,
-                                                 @RequestBody @Valid AlunoDto pedido) throws NotFoundException {
+                                                 @RequestBody @Valid AlunoDto pedido) throws NotFoundException, CpfExistsException {
         final AlunoDto a = servico.atualizarAluno(id, pedido);
 
         return ok(a);

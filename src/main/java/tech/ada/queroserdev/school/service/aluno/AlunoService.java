@@ -59,7 +59,6 @@ public class AlunoService implements IAlunoService {
     @Override
     public AlunoDto incrementarIdades(int id) throws NotFoundException {
         AlunoDto aluno = buscarAlunoPorId(id);
-
         aluno.setIdade(aluno.getIdade() + 1);
         return aluno;
     }

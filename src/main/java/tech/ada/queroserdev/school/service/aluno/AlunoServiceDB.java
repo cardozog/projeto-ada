@@ -6,7 +6,7 @@ import tech.ada.queroserdev.school.domain.dto.entities.Aluno;
 import tech.ada.queroserdev.school.domain.dto.exceptions.CpfExistsException;
 import tech.ada.queroserdev.school.domain.dto.exceptions.NotFoundException;
 import tech.ada.queroserdev.school.domain.dto.mappers.AlunoMapper;
-import tech.ada.queroserdev.school.domain.dto.repositories.AlunoRepository;
+import tech.ada.queroserdev.school.repositories.AlunoRepository;
 import tech.ada.queroserdev.school.domain.dto.v1.aluno.AlunoDto;
 
 import java.util.List;
@@ -42,8 +42,11 @@ public class AlunoServiceDB implements IAlunoService {
     }
 
     @Override
-    public AlunoDto atualizarAluno(int id, AlunoDto pedido) throws NotFoundException {
+    public AlunoDto atualizarAluno(int id, AlunoDto pedido) throws NotFoundException,CpfExistsException {
         final Aluno a = buscarAluno(id);
+        if(a.getCpf() == pedido.getCpf()){
+            throw new CpfExistsException(pedido.getCpf());
+        }
         a.setCpf(pedido.getCpf());
         a.setNome(pedido.getNome());
         a.setEMail(pedido.getEmail());

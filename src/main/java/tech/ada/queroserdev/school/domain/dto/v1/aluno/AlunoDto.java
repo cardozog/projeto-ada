@@ -24,10 +24,8 @@ public class AlunoDto {
     @CPF
     @NotBlank
     private String cpf;
-
     @Email
     @NotBlank
     private String email;
-
     private int idade;
 }
