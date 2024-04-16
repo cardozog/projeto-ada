@@ -52,8 +52,7 @@ public class WebSecurityConfig {
                         .requestMatchers(antMatcher(HttpMethod.GET, "/aluno/**")).permitAll())
                 .authorizeHttpRequests(r -> r.requestMatchers(antMatcher(HttpMethod.POST, "/aluno/**")).hasAnyRole("ADMIN")
                         .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
-                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+                .httpBasic(Customizer.withDefaults()).headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
 
         return httpSecurity.build();
     }
