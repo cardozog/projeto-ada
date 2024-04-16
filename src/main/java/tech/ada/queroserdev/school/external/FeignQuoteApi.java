@@ -10,4 +10,5 @@ import tech.ada.queroserdev.school.domain.dto.QuoteDto;
 public interface FeignQuoteApi {
     @GetMapping
     QuoteDto getQuote();
+
 }
