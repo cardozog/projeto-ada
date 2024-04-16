@@ -30,7 +30,7 @@ public class AlunoServiceDB implements IAlunoService {
         }
 
         Aluno a = AlunoMapper.toEntity(pedido);
-        return AlunoMapper.toDto(repository.save(a), quoteApi.getQuote().value());
+        return AlunoMapper.toDto(repository.save(a), quoteApi.getQuote().quote());
     }
 
     @Override
@@ -38,13 +38,13 @@ public class AlunoServiceDB implements IAlunoService {
         return repository
                 .findAll()
                 .stream()
-                .map(ent -> AlunoMapper.toDto(ent, quoteApi.getQuote().value()))
+                .map(ent -> AlunoMapper.toDto(ent, quoteApi.getQuote().quote()))
                 .toList();
     }
 
     @Override
     public AlunoDto buscarAlunoPorId(int id) throws NotFoundException {
-        return AlunoMapper.toDto(buscarAluno(id), quoteApi.getQuote().value());
+        return AlunoMapper.toDto(buscarAluno(id), quoteApi.getQuote().quote());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class AlunoServiceDB implements IAlunoService {
         a.setNome(pedido.getNome());
         a.setEMail(pedido.getEmail());
         a.setIdade(pedido.getIdade());
-        return AlunoMapper.toDto(repository.save(a), quoteApi.getQuote().value());
+        return AlunoMapper.toDto(repository.save(a), quoteApi.getQuote().quote());
     }
 
     @Override
@@ -72,12 +72,12 @@ public class AlunoServiceDB implements IAlunoService {
     public AlunoDto incrementarIdades(int id) throws NotFoundException {
         final Aluno a = buscarAluno(id);
         a.setIdade(a.getIdade() + 1);
-        return AlunoMapper.toDto(repository.save(a), quoteApi.getQuote().value());
+        return AlunoMapper.toDto(repository.save(a), quoteApi.getQuote().quote());
     }
 
     @Override
     public AlunoDto buscarPorCpf(String cpf) throws NotFoundException {
-        return AlunoMapper.toDto(repository.findByCpf(cpf).orElseThrow(() -> new NotFoundException(Aluno.class, cpf)), quoteApi.getQuote().value());
+        return AlunoMapper.toDto(repository.findByCpf(cpf).orElseThrow(() -> new NotFoundException(Aluno.class, cpf)), quoteApi.getQuote().quote());
     }
 
     @Override

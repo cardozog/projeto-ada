@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import tech.ada.queroserdev.school.domain.dto.QuoteDto;
 
 @Service
-@FeignClient(name = "Quotes", url="https://api.chucknorris.io/jokes/random")
+@FeignClient(name = "Quotes", url="https://api.kanye.rest/")
 public interface FeignQuoteApi {
     @GetMapping
     QuoteDto getQuote();
