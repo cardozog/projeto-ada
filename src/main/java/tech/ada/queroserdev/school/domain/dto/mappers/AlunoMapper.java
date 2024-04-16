@@ -2,7 +2,6 @@ package tech.ada.queroserdev.school.domain.dto.mappers;
 
 import tech.ada.queroserdev.school.domain.dto.entities.Aluno;
 import tech.ada.queroserdev.school.domain.dto.v1.aluno.AlunoDto;
-import tech.ada.queroserdev.school.external.RestBoredApi;
 
 public class AlunoMapper {
     public static Aluno toEntity(AlunoDto dto) {
@@ -15,7 +14,7 @@ public class AlunoMapper {
                 .build();
     }
 
-    public static AlunoDto toDto(Aluno aluno,String activity) {
-        return new AlunoDto(aluno.getId(), aluno.getNome(), aluno.getCpf(), aluno.getEMail(), aluno.getIdade(),activity );
+    public static AlunoDto toDto(Aluno aluno, String quote) {
+        return new AlunoDto(aluno.getId(), aluno.getNome(), aluno.getCpf(), aluno.getEMail(), aluno.getIdade(), quote);
     }
 }

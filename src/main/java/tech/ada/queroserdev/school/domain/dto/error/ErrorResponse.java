@@ -9,7 +9,7 @@ import tech.ada.queroserdev.school.domain.dto.exceptions.NotFoundException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-//resposta criada para enviar ao exception handler
+
 @Data
 public class ErrorResponse {
 
@@ -27,7 +27,6 @@ public class ErrorResponse {
     }
 
 
-    // vai criar uma exceção a partir dessa função lá no exception handler
     public static ErrorResponse createFromException(NotFoundException ex) {
         String message = "Nenhum registro de " + ex.getClazz().getSimpleName() + " encontrado através do valor " + ex.getId();
         return new ErrorResponse(message);
@@ -42,8 +41,8 @@ public class ErrorResponse {
         return new ErrorResponse("Validation errors", violations);
     }
 
-    public static ErrorResponse createFromException(CpfExistsException ex){
-        String message = "O CPF " + ex.getCpf() +" já existe no banco de dados.";
+    public static ErrorResponse createFromException(CpfExistsException ex) {
+        String message = "O CPF " + ex.getCpf() + " já existe no banco de dados.";
         return new ErrorResponse(message);
     }
 }

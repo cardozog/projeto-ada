@@ -3,11 +3,11 @@ package tech.ada.queroserdev.school.external;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import tech.ada.queroserdev.school.domain.dto.ActivityDto;
+import tech.ada.queroserdev.school.domain.dto.QuoteDto;
 
 @Service
-@FeignClient(name = "Activities", url="https://www.boredapi.com/api/activity")
-public interface FeignBoredApi {
+@FeignClient(name = "Quotes", url="https://api.chucknorris.io/jokes/random")
+public interface FeignQuoteApi {
     @GetMapping
-    ActivityDto getActivity();
+    QuoteDto getQuote();
 }

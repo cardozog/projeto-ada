@@ -1,4 +1,4 @@
 package tech.ada.queroserdev.school.domain.dto;
 
-public record ActivityDto(String activity) {
+public record QuoteDto(String value) {
 }

@@ -28,5 +28,5 @@ public class AlunoDto {
     private int idade;
 
     @Null
-    private String activity;
+    private String quote;
 }
