@@ -61,16 +61,16 @@ public class AlunoController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<AlunoDto> excluirAluno(@PathVariable("id") int id) throws NotFoundException {
-        AlunoDto alunoRemovido = servico.excluirAluno(id);
+    public ResponseEntity<Void> excluirAluno(@PathVariable("id") int id) throws NotFoundException {
+        servico.excluirAluno(id);
 
-        return ok(alunoRemovido);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/cpf/")
-    public ResponseEntity<AlunoDto> excluirAlunoPorCpf(@PathParam("cpf") String cpf) throws NotFoundException {
-        AlunoDto aluno = servico.excluirPorCpf(cpf);
-        return ok(aluno);
+    public ResponseEntity<Void> excluirAlunoPorCpf(@PathParam("cpf") String cpf) throws NotFoundException {
+        servico.excluirAluno(cpf);
+        return ResponseEntity.noContent().build();
     }
 
 

@@ -12,8 +12,8 @@ public interface IAlunoService {
     List<AlunoDto> listarAlunos();
     AlunoDto buscarAlunoPorId(int id) throws NotFoundException;
     AlunoDto atualizarAluno (int id, AlunoDto pedido) throws NotFoundException, CpfExistsException;
-    AlunoDto excluirAluno(int id) throws NotFoundException;
+    void excluirAluno(int id) throws NotFoundException;
     AlunoDto incrementarIdades(int id) throws NotFoundException;
     AlunoDto buscarPorCpf(String cpf) throws NotFoundException;
-    AlunoDto excluirPorCpf(String cpf) throws NotFoundException;
+    void excluirAluno(String cpf) throws NotFoundException;
 }

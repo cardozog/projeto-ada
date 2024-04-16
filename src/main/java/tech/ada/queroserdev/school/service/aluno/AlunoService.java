@@ -42,17 +42,14 @@ public class AlunoService implements IAlunoService {
         aluno.setCpf(pedido.getCpf() != null ? pedido.getCpf() : aluno.getCpf());
         aluno.setEmail(pedido.getEmail() != null ? pedido.getEmail() : aluno.getEmail());
         aluno.setIdade(pedido.getIdade() != 0 ? pedido.getIdade() : aluno.getIdade());
-
         return aluno;
-
-
     }
 
     @Override
-    public AlunoDto excluirAluno(int id) throws NotFoundException {
+    public void excluirAluno(int id) throws NotFoundException {
         AlunoDto aluno = buscarAlunoPorId(id);
         alunos.remove(aluno);
-        return aluno;
+
 
     }
 
@@ -73,9 +70,9 @@ public class AlunoService implements IAlunoService {
     }
 
     @Override
-    public AlunoDto excluirPorCpf(String cpf) throws NotFoundException {
-       AlunoDto aluno = buscarPorCpf(cpf);
-       alunos.remove(aluno);
-       return aluno;
+    public void excluirAluno(String cpf) throws NotFoundException {
+        AlunoDto aluno = buscarPorCpf(cpf);
+        alunos.remove(aluno);
+
     }
 }

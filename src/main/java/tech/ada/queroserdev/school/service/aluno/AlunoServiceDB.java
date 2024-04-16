@@ -24,7 +24,7 @@ public class AlunoServiceDB implements IAlunoService {
 
     @Override
     public AlunoDto criarAluno(AlunoDto pedido) throws CpfExistsException {
-        if(repository.existsByCpf(pedido.getCpf())){
+        if (repository.existsByCpf(pedido.getCpf())) {
             throw new CpfExistsException(pedido.getCpf());
         }
         Aluno a = AlunoMapper.toEntity(pedido);
@@ -42,9 +42,9 @@ public class AlunoServiceDB implements IAlunoService {
     }
 
     @Override
-    public AlunoDto atualizarAluno(int id, AlunoDto pedido) throws NotFoundException,CpfExistsException {
+    public AlunoDto atualizarAluno(int id, AlunoDto pedido) throws NotFoundException, CpfExistsException {
         final Aluno a = buscarAluno(id);
-        if(a.getCpf() == pedido.getCpf()){
+        if (a.getCpf() == pedido.getCpf()) {
             throw new CpfExistsException(pedido.getCpf());
         }
         a.setCpf(pedido.getCpf());
@@ -55,12 +55,11 @@ public class AlunoServiceDB implements IAlunoService {
     }
 
     @Override
-    public AlunoDto excluirAluno(int id) throws NotFoundException {
+    public void excluirAluno(int id) throws NotFoundException {
         final Aluno a = buscarAluno(id);
         repository.delete(a);
-        return AlunoMapper.toDto(a);
-    }
 
+    }
 
 
     @Override
@@ -76,10 +75,10 @@ public class AlunoServiceDB implements IAlunoService {
     }
 
     @Override
-    public AlunoDto excluirPorCpf(String cpf) throws NotFoundException {
+    public void excluirAluno(String cpf) throws NotFoundException {
         AlunoDto aluno = buscarPorCpf(cpf);
         repository.delete(AlunoMapper.toEntity(aluno));
-        return aluno;
+
     }
 
     private Aluno buscarAluno(int id) throws NotFoundException {
