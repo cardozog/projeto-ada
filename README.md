@@ -3,7 +3,16 @@ Essa API gerencia operações relacionadas a alunos dentro de um sistema escolar
 Lida com solicitações HTTP relacionadas a alunos, incluindo listagem, criação, atualização e exclusão de registros de alunos. 
 Também fornece endpoints para recuperar alunos por seus IDs ou CPFs (Número de Registro de Contribuinte Individual brasileiro) e para incrementar idades de alunos.
 
-## Endpoints
+### Autenticação
+A autenticação é necessária para algumas operações na API. Use as seguintes credenciais para autenticar:
+
+- **Admin:**
+  - Usuário: `admin`
+  - Senha: `admin`
+
+- **Usuário Seguro:**
+  - Usuário: `UsuarioSeguro`
+  - Senha: `SenhaSegura`
 
 ### Listar Alunos
 - **URL:** `/aluno`
@@ -32,6 +41,7 @@ Também fornece endpoints para recuperar alunos por seus IDs ou CPFs (Número de
 - **Método:** `POST`
 - **Descrição:** Cria um novo aluno.
 - **Corpo da Requisição:** Objeto JSON de `AlunoDto` representando o aluno a ser criado.
+- **Autenticação:** Admin ou Usuário Seguro
 - **Resposta:** Retorna um objeto JSON de `AlunoDto` representando o aluno criado.
 
 ### Incrementar Idades dos Alunos
@@ -41,28 +51,3 @@ Também fornece endpoints para recuperar alunos por seus IDs ou CPFs (Número de
 - **Parâmetros:**
   - `id`: O ID do aluno.
 - **Resposta:** Retorna um objeto JSON de `AlunoDto` representando o aluno atualizado.
-
-### Atualizar Aluno
-- **URL:** `/aluno/{id}`
-- **Método:** `PUT`
-- **Descrição:** Atualiza um aluno existente.
-- **Parâmetros:**
-  - `id`: O ID do aluno a ser atualizado.
-- **Corpo da Requisição:** Objeto JSON de `AlunoDto` representando as informações atualizadas do aluno.
-- **Resposta:** Retorna um objeto JSON de `AlunoDto` representando o aluno atualizado.
-
-### Excluir Aluno por ID
-- **URL:** `/aluno/{id}`
-- **Método:** `DELETE`
-- **Descrição:** Exclui um aluno pelo seu ID.
-- **Parâmetros:**
-  - `id`: O ID do aluno a ser excluído.
-- **Resposta:** Retorna um objeto JSON de `AlunoDto` representando o aluno excluído.
-
-### Excluir Aluno por CPF
-- **URL:** `/aluno/cpf/?cpf=xxxxxxxxxxx`
-- **Método:** `DELETE`
-- **Descrição:** Exclui um aluno pelo seu CPF.
-- **Parâmetros:**
-  - `cpf`: O CPF do aluno a ser excluído.
-- **Resposta:** Retorna um objeto JSON de `AlunoDto` representando o aluno excluído.
